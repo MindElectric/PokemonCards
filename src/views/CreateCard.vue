@@ -4,19 +4,28 @@ import Input from '@/components/ui/input/Input.vue';
 import Button from '@/components/ui/button/Button.vue';
 
 import { ref } from 'vue';
-import ScrollArea from '@/components/ui/scroll-area/ScrollArea.vue';
 import NatureSelect from '@/components/formSelects/NatureSelect.vue';
 import AbilitySelect from '@/components/formSelects/AbilitySelect.vue';
+import MovesInput from '@/components/MovesInput/MovesInput.vue';
 
 const searchPoke = ref('')
 const pokemon = ref([])
+
+// Name of the pokemon
 const selectPokemon = ref('')
+// Data of the pokemon (name, moves, abilities, etc)
 const selectedPokemon = ref([]);
+
+
+const isReadOnlyToggle = ref(true);
 
 const getPokemon = async (value: string) => {
     try {
         const response = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1000')
         const json = response.data.results
+        if (value != selectPokemon.value) {
+            isReadOnlyToggle.value = true
+        }
         const results = json.filter((pokemon: any) => {
             return (
                 value &&
@@ -39,6 +48,7 @@ const handleSelect = (value: string) => {
     pokemon.value = []
     searchPoke.value = selectPokemon.value
     getPokemonData(selectPokemon.value)
+    isReadOnlyToggle.value = false;
 }
 
 const getPokemonData = async (pokemonName: string) => {
@@ -60,15 +70,17 @@ const getPokemonData = async (pokemonName: string) => {
                 <div>
                     <label class="text-3xl font-bold">Pokémon Name</label>
                     <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu" />
-                    <ScrollArea v-show="pokemon.length"
-                        class="mt-2 overflow-y-auto border rounded-md max-h-44 bg-slate-50">
+                    <div class="relative">
+                        <div v-show="pokemon.length"
+                            class="absolute z-10 w-full mt-2 overflow-y-auto border rounded-md max-h-44 bg-slate-50">
 
-                        <div v-for="pokemon in pokemon" :key="pokemon" @click="handleSelect(pokemon.name)"
-                            class="pl-3 hover:bg-slate-200">
-                            {{ pokemon.name }}
+                            <div v-for="pokemon in pokemon" :key="pokemon" @click="handleSelect(pokemon.name)"
+                                class="pl-3 hover:bg-slate-200">
+                                {{ pokemon.name }}
+                            </div>
+
                         </div>
-
-                    </ScrollArea>
+                    </div>
                 </div>
 
                 <div class="ml-20">
@@ -81,36 +93,20 @@ const getPokemonData = async (pokemonName: string) => {
             <!-- Nature -->
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
-                    <NatureSelect />
+                    <NatureSelect :isDisabled="isReadOnlyToggle" />
                 </div>
             </div>
 
             <!-- Ability -->
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
-                    <AbilitySelect :abilities="selectedPokemon.abilities" />
+                    <AbilitySelect :abilities="selectedPokemon.abilities" :isDisabled="isReadOnlyToggle" />
                 </div>
             </div>
 
             <!-- Moves -->
-            <label class="mt-10 ml-20 text-3xl font-bold">Moves</label>
-            <div class="flex mt-5 justify-evenly">
-                <div class="flex w-4/5">
-                    <!-- Move 1 -->
-                    <Input placeholder="Move 1" class="mr-5" />
-                    <!-- Move 2 -->
-                    <Input placeholder="Move 2" />
-                </div>
-            </div>
-
-            <div class="flex mt-10 justify-evenly">
-                <div class="flex w-4/5">
-                    <!-- Move 3 -->
-                    <Input placeholder="Move 3" class="mr-5" />
-                    <!-- Move 4 -->
-                    <Input placeholder="Move 4" />
-                </div>
-            </div>
+            <!-- TODO: Add moves array -->
+            <MovesInput :isReadOnly="isReadOnlyToggle" />
 
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">

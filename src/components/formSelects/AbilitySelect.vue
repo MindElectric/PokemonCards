@@ -13,13 +13,16 @@ defineProps({
     abilities: {
         type: Array,
         required: true
+    },
+    isDisabled: {
+        type: Boolean,
     }
 })
 </script>
 
 <template>
     <label class="text-3xl font-bold">Ability</label>
-    <Select>
+    <Select :disabled="isDisabled">
         <SelectTrigger>
             <SelectValue placeholder="Select an Ability" />
         </SelectTrigger>

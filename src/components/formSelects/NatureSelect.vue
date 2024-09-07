@@ -10,11 +10,17 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 
+defineProps({
+    isDisabled: {
+        type: Boolean,
+    }
+})
+
 </script>
 
 <template>
     <label class="text-3xl font-bold">Nature</label>
-    <Select>
+    <Select :disabled="isDisabled">
         <SelectTrigger>
             <SelectValue placeholder="Select a Nature" />
         </SelectTrigger>

@@ -1,0 +1,104 @@
+{
+    "natures": [
+        {
+            "name": "Adamant",
+            "id": "adamant"
+        },
+        {
+            "name": "Bashful",
+            "id": "bashful"
+        },
+        {
+            "name": "Bold",
+            "id": "bold"
+        },
+        {
+            "name": "Brave",
+            "id": "brave"
+        },
+        {
+            "name": "Calm",
+            "id": "calm"
+        },
+        {
+            "name": "Careful",
+            "id": "careful"
+        },
+        {
+            "name": "Docile",
+            "id": "docile"
+        },
+        {
+            "name": "Gentle",
+            "id": "gentle"
+        },
+        {
+            "name": "Hardy",
+            "id": "hardy"
+        },
+        {
+            "name": "Hasty",
+            "id": "hasty"
+        },
+        {
+            "name": "Impish",
+            "id": "impish"
+        },
+        {
+            "name": "Jolly",
+            "id": "jolly"
+        },
+        {
+            "name": "Lax",
+            "id": "lax"
+        },
+        {
+            "name": "Lonely",
+            "id": "lonely"
+        },
+        {
+            "name": "Mild",
+            "id": "mild"
+        },
+        {
+            "name": "Modest",
+            "id": "modest"
+        },
+        {
+            "name": "Naive",
+            "id": "naive"
+        },
+        {
+            "name": "Naughty",
+            "id": "naughty"
+        },
+        {
+            "name": "Quiet",
+            "id": "quiet"
+        },
+        {
+            "name": "Quirky",
+            "id": "quirky"
+        },
+        {
+            "name": "Rash",
+            "id": "rash"
+        },
+        {
+            "name": "Relaxed",
+            "id": "relaxed"
+        },
+        {
+            "name": "Sassy",
+            "id": "sassy"
+        },
+        {
+            "name": "Serious",
+            "id": "serious"
+        },
+        {
+            "name": "Timid",
+            "id": "timid"
+        }
+    ]
+}

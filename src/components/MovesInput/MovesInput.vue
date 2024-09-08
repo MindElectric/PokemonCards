@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Input from '@/components/ui/input/Input.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import type { Move } from '@/interfaces/pokemon';
 
 defineProps({
@@ -19,10 +19,21 @@ const move2 = ref('');
 const move3 = ref('');
 const move4 = ref('');
 const movesArray = ref([]);
+const filteredMovesArray = ref([] as Move[]);
 
-const moveName = (move: string) => {
-    console.log(move)
-}
+const moveName = (move: string, moves: Move[]) => {
+    console.log(move);
+    const filteredMoves = moves.filter(m => {
+        return (
+            move &&
+            m &&
+            m.move.name &&
+            m.move.name.toLowerCase().includes(move.toLowerCase())
+        )
+    });
+    console.log(filteredMoves);
+    filteredMovesArray.value = filteredMoves;
+};
 
 const handleSelect = (value: string) => {
     console.log("You selected ", value)
@@ -35,19 +46,26 @@ const handleSelect = (value: string) => {
     <div class="flex mt-5 justify-evenly">
         <div class="flex w-4/5">
             <!-- Move 1 -->
-            <Input :readonly="isReadOnly" placeholder="Move 1" class="mr-5" @update:model-value="moveName(move1)" />
-            <div class="relative">
-                <div class="absolute z-10 w-full mt-2 overflow-y-auto border rounded-md max-h-44 bg-slate-50">
+            <div class="w-full">
+                <Input v-model="move1" :readonly="isReadOnly" placeholder="Move 1" class="mr-5"
+                    @update:model-value="moveName(move1, moves)" />
+                <div class="relative">
+                    <div v-show="filteredMovesArray.length"
+                        class="absolute z-10 w-full mt-2 overflow-y-auto border rounded-md max-h-44 bg-slate-50">
 
-                    <div v-for="(move, index) in moves" :key="moves[index].move.name"
-                        @click="handleSelect(moves[index].move.name)" class="pl-3 hover:bg-slate-200">
-                        {{ moves[index].move.name }}
+                        <div v-for="(move, index) in filteredMovesArray" :key="filteredMovesArray[index].move.name"
+                            @click="handleSelect(filteredMovesArray[index].move.name)" class="pl-3 hover:bg-slate-200">
+                            {{ filteredMovesArray[index].move.name }}
+                        </div>
+
                     </div>
-
                 </div>
             </div>
             <!-- Move 2 -->
-            <Input :readonly="isReadOnly" placeholder="Move 2" />
+            <div class="w-full">
+                <Input :readonly="isReadOnly" placeholder="Move 2" />
+
+            </div>
         </div>
     </div>
 

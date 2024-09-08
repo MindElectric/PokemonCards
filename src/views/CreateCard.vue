@@ -7,14 +7,15 @@ import { ref } from 'vue';
 import NatureSelect from '@/components/formSelects/NatureSelect.vue';
 import AbilitySelect from '@/components/formSelects/AbilitySelect.vue';
 import MovesInput from '@/components/MovesInput/MovesInput.vue';
+import type { Pokemon, SimplePokemon } from '@/interfaces';
 
 const searchPoke = ref('')
-const pokemon = ref([])
+const pokemon = ref([] as SimplePokemon[])
 
 // Name of the pokemon
 const selectPokemon = ref('')
 // Data of the pokemon (name, moves, abilities, etc)
-const selectedPokemon = ref([]);
+const selectedPokemon = ref({} as Pokemon);
 
 
 const isReadOnlyToggle = ref(true);
@@ -44,17 +45,16 @@ const getPokemon = async (value: string) => {
 //Selecting a pokemon
 const handleSelect = (value: string) => {
     selectPokemon.value = value
-    console.log("You selected ", selectPokemon.value)
     pokemon.value = []
     searchPoke.value = selectPokemon.value
     getPokemonData(selectPokemon.value)
     isReadOnlyToggle.value = false;
 }
 
+// Get data of the selected pokemon when selected
 const getPokemonData = async (pokemonName: string) => {
     try {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-        console.log(response.data)
         return selectedPokemon.value = response.data
     } catch (error) {
         console.log(error)
@@ -70,13 +70,14 @@ const getPokemonData = async (pokemonName: string) => {
                 <div>
                     <label class="text-3xl font-bold">Pokémon Name</label>
                     <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu" />
+                    <!-- List of pokemons -->
                     <div class="relative">
                         <div v-show="pokemon.length"
                             class="absolute z-10 w-full mt-2 overflow-y-auto border rounded-md max-h-44 bg-slate-50">
 
-                            <div v-for="pokemon in pokemon" :key="pokemon" @click="handleSelect(pokemon.name)"
+                            <div v-for="poke in pokemon" :key="poke.name" @click="handleSelect(poke.name)"
                                 class="pl-3 hover:bg-slate-200">
-                                {{ pokemon.name }}
+                                {{ poke.name }}
                             </div>
 
                         </div>
@@ -106,7 +107,7 @@ const getPokemonData = async (pokemonName: string) => {
 
             <!-- Moves -->
             <!-- TODO: Add moves array -->
-            <MovesInput :isReadOnly="isReadOnlyToggle" />
+            <MovesInput :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" />
 
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">

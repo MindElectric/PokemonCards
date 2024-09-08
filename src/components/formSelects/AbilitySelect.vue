@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Ability } from '@/interfaces/pokemon'
 import {
     Select,
     SelectContent,
@@ -11,8 +12,8 @@ import {
 
 defineProps({
     abilities: {
-        type: Array,
-        required: true
+        type: Array as () => Ability[],
+        default: [],
     },
     isDisabled: {
         type: Boolean,

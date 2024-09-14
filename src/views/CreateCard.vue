@@ -6,8 +6,8 @@ import Button from '@/components/ui/button/Button.vue';
 import { ref } from 'vue';
 import NatureSelect from '@/components/formSelects/NatureSelect.vue';
 import AbilitySelect from '@/components/formSelects/AbilitySelect.vue';
-import MovesInput from '@/components/MovesInput/MovesInput.vue';
 import type { Pokemon, SimplePokemon } from '@/interfaces';
+import MovesSelect from '@/components/formSelects/MovesSelect.vue';
 
 const searchPoke = ref('')
 const pokemon = ref([] as SimplePokemon[])
@@ -19,6 +19,8 @@ const selectedPokemon = ref({} as Pokemon);
 
 
 const isReadOnlyToggle = ref(true);
+
+const movesArray = ref([]);
 
 const getPokemon = async (value: string) => {
     try {
@@ -107,7 +109,7 @@ const getPokemonData = async (pokemonName: string) => {
 
             <!-- Moves -->
             <!-- TODO: Add moves array -->
-            <MovesInput :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" />
+            <MovesSelect :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" />
 
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">

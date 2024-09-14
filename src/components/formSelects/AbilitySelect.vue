@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Ability } from '@/interfaces/pokemon'
+import type { Ability } from "../../interfaces/pokemon"
 import {
     Select,
     SelectContent,
@@ -8,7 +8,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select'
+} from '../ui/select'
 
 defineProps({
     abilities: {

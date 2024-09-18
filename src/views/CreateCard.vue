@@ -20,8 +20,6 @@ const selectedPokemon = ref({} as Pokemon);
 
 const isReadOnlyToggle = ref(true);
 
-const movesArray = ref([]);
-
 const getPokemon = async (value: string) => {
     try {
         const response = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1000')
@@ -63,15 +61,48 @@ const getPokemonData = async (pokemonName: string) => {
     }
 }
 
+// Moves
+
+const receiveAbilities = (ability: string) => {
+    console.log("Calling receive abilities", ability)
+}
+const move1 = ref('');
+const move2 = ref('');
+const move3 = ref('');
+const move4 = ref('');
+
+const selectedMoves = ref([] as string[]);
+
+const receiveMove1 = (move: string) => {
+    move1.value = move
+}
+const receiveMove2 = (move: string) => {
+    move2.value = move
+}
+const receiveMove3 = (move: string) => {
+    move3.value = move
+}
+const receiveMove4 = (move: string) => {
+    move4.value = move
+}
+
+const onSubmit = () => {
+    selectedMoves.value = [move1.value, move2.value, move3.value, move4.value]
+    console.log(selectedMoves.value)
+    // Create pokemon card
+}
+
+
 </script>
 
 <template>
     <div class="mt-10 ">
-        <form>
+        <form @submit.prevent="onSubmit">
             <div class="flex justify-center">
                 <div>
                     <label class="text-3xl font-bold">Pokémon Name</label>
-                    <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu" />
+                    <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu"
+                        name="Pokemon" required />
                     <!-- List of pokemons -->
                     <div class="relative">
                         <div v-show="pokemon.length"
@@ -103,13 +134,41 @@ const getPokemonData = async (pokemonName: string) => {
             <!-- Ability -->
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
-                    <AbilitySelect :abilities="selectedPokemon.abilities" :isDisabled="isReadOnlyToggle" />
+                    <AbilitySelect :abilities="selectedPokemon.abilities" :isDisabled="isReadOnlyToggle"
+                        @abilitySelected="receiveAbilities" />
                 </div>
             </div>
 
             <!-- Moves -->
-            <!-- TODO: Add moves array -->
-            <MovesSelect :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" />
+            <label class="mt-10 ml-20 text-3xl font-bold">Moves</label>
+            <div class="flex mt-5 justify-evenly">
+                <div class="flex w-4/5">
+                    <!-- Move 1 -->
+                    <div class="w-full mr-5">
+                        <MovesSelect :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" placeholder="Move 1"
+                            :isRequired='true' @moveSelected="receiveMove1" />
+
+                    </div>
+                    <div class="w-full">
+                        <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move2" :moves="selectedPokemon.moves"
+                            placeholder="Move 2" @moveSelected="receiveMove2" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex mt-5 justify-evenly">
+                <div class="flex w-4/5">
+                    <!-- Move 1 -->
+                    <div class="w-full mr-5">
+                        <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move3" :moves="selectedPokemon.moves"
+                            placeholder="Move 3" @moveSelected="receiveMove3" />
+
+                    </div>
+                    <div class="w-full">
+                        <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move4" :moves="selectedPokemon.moves"
+                            placeholder="Move 4" @moveSelected="receiveMove4" />
+                    </div>
+                </div>
+            </div>
 
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">

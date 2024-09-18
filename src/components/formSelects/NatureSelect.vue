@@ -20,7 +20,7 @@ defineProps({
 
 <template>
     <label class="text-3xl font-bold">Nature</label>
-    <Select :disabled="isDisabled">
+    <Select :disabled="isDisabled" required>
         <SelectTrigger>
             <SelectValue placeholder="Select a Nature" />
         </SelectTrigger>

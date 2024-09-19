@@ -8,6 +8,7 @@ import NatureSelect from '@/components/formSelects/NatureSelect.vue';
 import AbilitySelect from '@/components/formSelects/AbilitySelect.vue';
 import type { Pokemon, SimplePokemon } from '@/interfaces';
 import MovesSelect from '@/components/formSelects/MovesSelect.vue';
+import PokemonCard from '@/components/pokemonCard/PokemonCard.vue';
 
 const searchPoke = ref('')
 const pokemon = ref([] as SimplePokemon[])
@@ -176,5 +177,10 @@ const onSubmit = () => {
             </div>
 
         </form>
+
+        <!-- Image -->
+        <div class="flex justify-center mb-32 mt-28">
+            <PokemonCard pokemonName="pikachu" nature="Timid" ability="Static" :moves="['Thunder Shock', 'Quick Attack', 'Iron Tail', 'Electro Ball']" />
+        </div>
     </div>
 </template>

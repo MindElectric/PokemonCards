@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import type { Ability } from "../../interfaces/pokemon"
 import {
     Select,
@@ -20,10 +21,11 @@ defineProps({
     }
 })
 
+const abilityName = ref('');
+
 const emits = defineEmits(['abilitySelected']);
 
-const emitMove = (move: string) => {
-    console.log("Emitting move: ", move)
+const emitAbility = (move: string) => {
     emits('abilitySelected', move);
 };
 
@@ -31,16 +33,18 @@ const emitMove = (move: string) => {
 
 <template>
     <label class="text-3xl font-bold">Ability</label>
-    <Select :disabled="isDisabled" required>
+    <Select :disabled="isDisabled" required v-model="abilityName" @update:model-value="emitAbility(abilityName)">
         <SelectTrigger>
             <SelectValue placeholder="Select an Ability" />
         </SelectTrigger>
         <SelectContent>
             <SelectGroup>
                 <SelectLabel>Abilities</SelectLabel>
-                <SelectItem v-for="(ability, index) in abilities" :value="index.toString()"
-                    :key="`${index}-${ability.ability.name}`" @click="emitMove(abilities[index].ability.name)">
+                <SelectItem v-for="(ability, index) in abilities" :value="ability.ability.name"
+                    :key="`${index}-${ability.ability.name}`" >
+                   
                     {{ abilities[index].ability.name }}
+                  
                 </SelectItem>
             </SelectGroup>
         </SelectContent>

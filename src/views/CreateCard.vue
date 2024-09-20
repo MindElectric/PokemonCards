@@ -10,6 +10,8 @@ import type { Pokemon, SimplePokemon } from '@/interfaces';
 import MovesSelect from '@/components/formSelects/MovesSelect.vue';
 import PokemonCard from '@/components/pokemonCard/PokemonCard.vue';
 
+
+const showPokemonCard = ref(false);
 const searchPoke = ref('')
 const pokemon = ref([] as SimplePokemon[])
 
@@ -20,6 +22,10 @@ const selectedPokemon = ref({} as Pokemon);
 
 
 const isReadOnlyToggle = ref(true);
+
+const selectedNature = ref('');
+
+const selectedAbility = ref('');
 
 const getPokemon = async (value: string) => {
     try {
@@ -62,11 +68,15 @@ const getPokemonData = async (pokemonName: string) => {
     }
 }
 
-// Moves
+const receiveNature = (nature: string) => {
+    selectedNature.value = nature
+}
+
 
 const receiveAbilities = (ability: string) => {
-    console.log("Calling receive abilities", ability)
+    selectedAbility.value = ability
 }
+// Moves
 const move1 = ref('');
 const move2 = ref('');
 const move3 = ref('');
@@ -89,6 +99,7 @@ const receiveMove4 = (move: string) => {
 
 const onSubmit = () => {
     selectedMoves.value = [move1.value, move2.value, move3.value, move4.value]
+    showPokemonCard.value = true
     console.log(selectedMoves.value)
     // Create pokemon card
 }
@@ -128,7 +139,7 @@ const onSubmit = () => {
             <!-- Nature -->
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
-                    <NatureSelect :isDisabled="isReadOnlyToggle" />
+                    <NatureSelect :isDisabled="isReadOnlyToggle" @natureSelected="receiveNature" />
                 </div>
             </div>
 
@@ -179,8 +190,11 @@ const onSubmit = () => {
         </form>
 
         <!-- Image -->
-        <div class="flex justify-center mb-32 mt-28">
-            <PokemonCard pokemonName="pikachu" nature="Timid" ability="Static" :moves="['Thunder Shock', 'Quick Attack', 'Iron Tail', 'Electro Ball']" />
+        <div v-if="showPokemonCard" class="flex justify-center mb-32 mt-28">
+            <PokemonCard :pokemonName="searchPoke"
+                :art="selectedPokemon.sprites.other!['official-artwork'].front_default" :nature="selectedNature"
+                :pokeTypes="selectedPokemon.types" :ability="selectedAbility"
+                :moves="['Thunder Shock', 'Quick Attack', 'Iron Tail', 'Electro Ball']" />
         </div>
     </div>
 </template>

@@ -9,6 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { ref } from 'vue';
 
 defineProps({
     isDisabled: {
@@ -16,18 +17,26 @@ defineProps({
     }
 })
 
+const natureName = ref('');
+
+const emits = defineEmits(['natureSelected']);
+
+const emitNature = (nature: string) => {
+    emits('natureSelected', nature);
+};
+
 </script>
 
 <template>
     <label class="text-3xl font-bold">Nature</label>
-    <Select :disabled="isDisabled" required>
+    <Select :disabled="isDisabled" required v-model="natureName" @update:model-value="emitNature(natureName)">
         <SelectTrigger>
             <SelectValue placeholder="Select a Nature" />
         </SelectTrigger>
         <SelectContent>
             <SelectGroup>
                 <SelectLabel>Natures</SelectLabel>
-                <SelectItem v-for="nature in natures.natures" :value="nature.id">
+                <SelectItem v-for="nature in natures.natures" :value="nature.name">
                     {{ nature.name }}
                 </SelectItem>
             </SelectGroup>

@@ -85,7 +85,7 @@ const handleSelect1 = (value: string) => {
     </Select> -->
 
 
-    <!-- This works 🤔 -->
+    <!-- This works alone 🤔 -->
     <!-- <button v-for="(move, index) in moves" :value="moves[index].move.name"
         @click.prevent="emitMove(moves[index].move.name)">
         {{ moves[index].move.name }}

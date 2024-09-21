@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import type { Move } from '@/interfaces/pokemon';
 import Input from '../ui/input/Input.vue';
+import capitalizeString from '@/utils/capitalize';
 
 defineProps({
     isReadOnly: {
@@ -41,9 +42,10 @@ const emitMove = (move: string) => {
 };
 
 const handleSelect1 = (value: string) => {
-    move1.value = value
+    const capitalizedValue = capitalizeString(value)
+    move1.value = capitalizedValue
     filteredMovesArray1.value = []
-    emitMove(value)
+    emitMove(capitalizedValue)
 
 }
 
@@ -59,7 +61,7 @@ const handleSelect1 = (value: string) => {
 
                 <div v-for="(move, index) in filteredMovesArray1" :key="filteredMovesArray1[index].move.name"
                     @click="handleSelect1(filteredMovesArray1[index].move.name)" class="pl-3 hover:bg-slate-200">
-                    {{ filteredMovesArray1[index].move.name }}
+                    {{ capitalizeString(filteredMovesArray1[index].move.name) }}
                 </div>
 
             </div>

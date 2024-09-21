@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { Ability } from "../../interfaces/pokemon"
+import capitalizeString from "@/utils/capitalize";
 import {
     Select,
     SelectContent,
@@ -25,8 +26,9 @@ const abilityName = ref('');
 
 const emits = defineEmits(['abilitySelected']);
 
-const emitAbility = (move: string) => {
-    emits('abilitySelected', move);
+const emitAbility = (ability: string) => {
+    const capitalizedAbility = capitalizeString(ability);
+    emits('abilitySelected', capitalizedAbility);
 };
 
 </script>
@@ -41,10 +43,10 @@ const emitAbility = (move: string) => {
             <SelectGroup>
                 <SelectLabel>Abilities</SelectLabel>
                 <SelectItem v-for="(ability, index) in abilities" :value="ability.ability.name"
-                    :key="`${index}-${ability.ability.name}`" >
-                   
-                    {{ abilities[index].ability.name }}
-                  
+                    :key="`${index}-${ability.ability.name}`">
+
+                    {{ capitalizeString(abilities[index].ability.name) }}
+
                 </SelectItem>
             </SelectGroup>
         </SelectContent>

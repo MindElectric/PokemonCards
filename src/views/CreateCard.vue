@@ -9,6 +9,7 @@ import AbilitySelect from '@/components/formSelects/AbilitySelect.vue';
 import type { Pokemon, SimplePokemon } from '@/interfaces';
 import MovesSelect from '@/components/formSelects/MovesSelect.vue';
 import PokemonCard from '@/components/pokemonCard/PokemonCard.vue';
+import capitalizeString from '@/utils/capitalize'
 
 
 const showPokemonCard = ref(false);
@@ -34,7 +35,7 @@ const getPokemon = async (value: string) => {
         if (value != selectPokemon.value) {
             isReadOnlyToggle.value = true
         }
-        const results = json.filter((pokemon: any) => {
+        const results = json.filter((pokemon: SimplePokemon) => {
             return (
                 value &&
                 pokemon &&
@@ -50,11 +51,12 @@ const getPokemon = async (value: string) => {
 };
 
 //Selecting a pokemon
-const handleSelect = (value: string) => {
+const handleSelect = async (value: string) => {
+    const pokemonName = capitalizeString(value)
     selectPokemon.value = value
     pokemon.value = []
-    searchPoke.value = selectPokemon.value
-    getPokemonData(selectPokemon.value)
+    searchPoke.value = pokemonName
+    await getPokemonData(selectPokemon.value)
     isReadOnlyToggle.value = false;
 }
 
@@ -84,6 +86,8 @@ const move4 = ref('');
 
 const selectedMoves = ref([] as string[]);
 
+const sprite = ref('');
+
 const receiveMove1 = (move: string) => {
     move1.value = move
 }
@@ -97,10 +101,10 @@ const receiveMove4 = (move: string) => {
     move4.value = move
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
     selectedMoves.value = [move1.value, move2.value, move3.value, move4.value]
+    sprite.value = selectedPokemon.value.sprites.other!['official-artwork'].front_default
     showPokemonCard.value = true
-    console.log(selectedMoves.value)
     // Create pokemon card
 }
 
@@ -122,7 +126,7 @@ const onSubmit = () => {
 
                             <div v-for="poke in pokemon" :key="poke.name" @click="handleSelect(poke.name)"
                                 class="pl-3 hover:bg-slate-200">
-                                {{ poke.name }}
+                                {{ capitalizeString(poke.name) }}
                             </div>
 
                         </div>
@@ -191,10 +195,9 @@ const onSubmit = () => {
 
         <!-- Image -->
         <div v-if="showPokemonCard" class="flex justify-center mb-32 mt-28">
-            <PokemonCard :pokemonName="searchPoke"
-                :art="selectedPokemon.sprites.other!['official-artwork'].front_default" :nature="selectedNature"
-                :pokeTypes="selectedPokemon.types" :ability="selectedAbility"
-                :moves="['Thunder Shock', 'Quick Attack', 'Iron Tail', 'Electro Ball']" />
+            <PokemonCard :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+                :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
+                :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
         </div>
     </div>
 </template>

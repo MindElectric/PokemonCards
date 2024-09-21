@@ -9,6 +9,8 @@ const props = defineProps({
   nature: String,
   ability: String,
   moves: Array,
+  nationalDex: Number,
+  hp: Number,
   pokeTypes: {
     type: Array as () => Type[],
     required: true
@@ -27,22 +29,33 @@ const canvas = ref<HTMLCanvasElement | null>(null);
 
 const drawImage = () => {
   const ctx = (canvas.value as HTMLCanvasElement).getContext('2d');
-  const sprite = new Image();
-  sprite.src = props.art;
+
 
   // Draw background image
   const background = new Image();
   background.src = backgroundImg;
+  background.crossOrigin = 'anonymous';
   // Pokemon type images
   const type1Img = new Image();
+  type1Img.crossOrigin = 'anonymous';
   const type2Img = new Image();
+  type2Img.crossOrigin = 'anonymous';
+
+  const sprite = new Image();
+  sprite.src = props.art;
+  sprite.crossOrigin = 'anonymous';
   background.onload = () => {
     ctx?.drawImage(background, 0, 0, width, height);
     type1Img.src = getImageUrl(props.pokeTypes[0].type.name);
     if (props.pokeTypes.length > 1) {
       type2Img.src = getImageUrl(props.pokeTypes[1].type.name);
-      console.log(type2Img);
     }
+
+
+    sprite.onload = () => {
+      ctx?.drawImage(sprite, 50, 30, 300, 300);
+    };
+
 
 
     // type1Img.src = normal;
@@ -52,18 +65,26 @@ const drawImage = () => {
         ctx?.drawImage(type2Img, 10, 100, 60, 60);
 
       }
-      ctx?.drawImage(sprite, 50, 30, 300, 300);
+
 
       // Draw text
       if (ctx) {
-        ctx.font = 'bold 20px Roboto';
+        ctx.font = 'bold 21px Roboto';
         ctx.fillStyle = 'white';
-        ctx.fillText(`Name: ${props.pokemonName}`, 150, 33);
+        ctx.fillText(`${props.nationalDex}`, 107, 33);
+        ctx.fillText(`${props.pokemonName}`, 170, 33);
         ctx.font = '16px Roboto';
         ctx.fillStyle = 'black';
         ctx.fillText(`${props.nature}`, 480, 89);
         ctx.fillText(` ${props.ability}`, 480, 132);
-        ctx.fillText(`${props.moves!.join(', ')}`, 20, 200);
+        ctx.fillText(`${props.moves![0]}`, 380, 188);
+        ctx.fillText(`${props.moves![1]}`, 380, 230);
+        ctx.fillText(`${props.moves![2]}`, 380, 272);
+        ctx.fillText(`${props.moves![3]}`, 380, 314);
+
+        ctx.font = 'bold 20px Roboto';
+        ctx.fillStyle = '#A7DC64'
+        ctx.fillText(`${props.hp} HP`, 55, 329);
       }
     };
   }
@@ -86,9 +107,6 @@ onMounted(() => {
   drawImage();
 });
 
-onUpdated(() => {
-  drawImage();
-});
 
 </script>
 <template>

@@ -10,6 +10,8 @@ import type { Pokemon, SimplePokemon } from '@/interfaces';
 import MovesSelect from '@/components/formSelects/MovesSelect.vue';
 import PokemonCard from '@/components/pokemonCard/PokemonCard.vue';
 import capitalizeString from '@/utils/capitalize'
+import FormDialog from '@/components/alertDialog/FormDialog.vue'
+import PokemonCardSM from '@/components/pokemonCard/PokemonCardSM.vue';
 
 
 const showPokemonCard = ref(false);
@@ -53,10 +55,15 @@ const getPokemon = async (value: string) => {
 //Selecting a pokemon
 const handleSelect = async (value: string) => {
     const pokemonName = capitalizeString(value)
-    selectPokemon.value = value
-    pokemon.value = []
     searchPoke.value = pokemonName
+    selectPokemon.value = value
+    //erase previous data
+    pokemon.value = []
+    selectedNature.value = ''
+    selectedAbility.value = ''
+    selectedMoves.value = []
     await getPokemonData(selectPokemon.value)
+    //User is able to interact with the form
     isReadOnlyToggle.value = false;
 }
 
@@ -108,6 +115,11 @@ const onSubmit = async () => {
     // Create pokemon card
 }
 
+//Close dialog
+const onCancel = (toggle: boolean) => {
+    showPokemonCard.value = toggle
+    console.log(showPokemonCard.value)
+}
 
 </script>
 
@@ -194,10 +206,25 @@ const onSubmit = async () => {
         </form>
 
         <!-- Image -->
-        <div v-if="showPokemonCard" class="flex justify-center mb-32 mt-28">
-            <PokemonCard :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+        <div v-if="showPokemonCard">
+            <FormDialog @cancel="onCancel">
+                <!-- Big Pokemon Card for lage screen -->
+                <div class="hidden lg:block">
+                    <PokemonCard :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+                        :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
+                        :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
+                </div>
+
+                <!-- Small Pokemon Card for small screen -->
+                <div class="block lg:hidden">
+                    <PokemonCardSM :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+                        :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
+                        :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
+                </div>
+            </FormDialog>
+            <!-- <PokemonCard :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
                 :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
-                :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
+                :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" /> -->
         </div>
     </div>
 </template>

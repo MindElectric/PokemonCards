@@ -36,7 +36,7 @@ const emitNature = (nature: string) => {
         <SelectContent>
             <SelectGroup>
                 <SelectLabel>Natures</SelectLabel>
-                <SelectItem v-for="nature in natures.natures" :value="nature.name">
+                <SelectItem v-for="nature in natures.natures" :value="nature.name" :key="nature.name">
                     {{ nature.name }}
                 </SelectItem>
             </SelectGroup>

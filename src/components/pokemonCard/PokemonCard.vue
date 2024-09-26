@@ -3,14 +3,33 @@ import { ref, onMounted, onUpdated } from 'vue';
 import type { Type } from '@/interfaces/pokemon';
 import backgroundImg from '../../assets/background.png'
 import * as pokemonImageTypes from '../../assets/poke_types/index'
+import { downloadImage } from '@/helpers/downloadCanvas';
 
 const props = defineProps({
-  pokemonName: String,
-  nature: String,
-  ability: String,
-  moves: Array,
-  nationalDex: Number,
-  hp: Number,
+  pokemonName: {
+    type: String,
+    required: true
+  },
+  nature: {
+    type: String,
+    required: true
+  },
+  ability: {
+    type: String,
+    required: true
+  },
+  moves: {
+    type: Array as () => String[],
+    required: true
+  },
+  nationalDex: {
+    type: Number,
+    required: true
+  },
+  hp: {
+    type: Number,
+    required: true
+  },
   pokeTypes: {
     type: Array as () => Type[],
     required: true
@@ -96,12 +115,15 @@ const getImageUrl = (name: string) => {
 };
 
 
-const downloadImage = () => {
-  const link = document.createElement('a');
-  link.download = `${props.pokemonName}.png`;
-  link.href = (canvas.value as HTMLCanvasElement).toDataURL('image/png');
-  link.click();
-};
+// const downloadImage = () => {
+//   const link = document.createElement('a');
+//   link.download = `${props.pokemonName}.png`;
+//   link.href = (canvas.value as HTMLCanvasElement).toDataURL('image/png');
+//   link.click();
+// };
+const handleClick = () => {
+  downloadImage(props);
+}
 
 onMounted(() => {
   drawImage();
@@ -113,10 +135,10 @@ onMounted(() => {
   <div>
 
     <div class="p-4 bg-white rounded-lg shadow-lg">
-      <canvas ref="canvas" :width="width" :height="height" class="border"></canvas>
+      <canvas id="canvasId" ref="canvas" :width="width" :height="height" class="border"></canvas>
     </div>
     <div>
-      <button @click="downloadImage" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-700">
+      <button @click="handleClick" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-700">
         Download Image
       </button>
     </div>

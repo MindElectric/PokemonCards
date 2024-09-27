@@ -9,11 +9,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 
-defineProps({
+const props = defineProps({
     isDisabled: {
         type: Boolean,
+    },
+    searchChange: {
+        type: String,
     }
 })
 
@@ -24,6 +27,18 @@ const emits = defineEmits(['natureSelected']);
 const emitNature = (nature: string) => {
     emits('natureSelected', nature);
 };
+
+const handleChange = () => {
+    if (props.searchChange === '') {
+        natureName.value = '';
+    }
+}
+
+onUpdated(() => {
+    if (props.searchChange === '') {
+        handleChange();
+    }
+})
 
 </script>
 

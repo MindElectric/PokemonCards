@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 import type { Move } from '@/interfaces/pokemon';
 import Input from '../ui/input/Input.vue';
 import capitalizeString from '@/utils/capitalize';
 
-defineProps({
+const props = defineProps({
     isReadOnly: {
         type: Boolean,
         default: true
@@ -19,6 +19,9 @@ defineProps({
     },
     isRequired: {
         type: Boolean
+    },
+    searchChange: {
+        type: String
     }
 })
 
@@ -48,6 +51,18 @@ const handleSelect1 = (value: string) => {
     emitMove(capitalizedValue)
 
 }
+
+const handleChange = () => {
+    if (props.searchChange === '') {
+        move1.value = '';
+    }
+}
+
+onUpdated(() => {
+    if (props.searchChange === '') {
+        handleChange();
+    }
+})
 
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onUpdated, ref } from "vue";
 import type { Ability } from "../../interfaces/pokemon"
 import capitalizeString from "@/utils/capitalize";
 import {
@@ -12,13 +12,16 @@ import {
     SelectValue,
 } from '../ui/select'
 
-defineProps({
+const props = defineProps({
     abilities: {
         type: Array as () => Ability[],
         default: [],
     },
     isDisabled: {
         type: Boolean,
+    },
+    searchChange: {
+        type: String,
     }
 })
 
@@ -30,6 +33,18 @@ const emitAbility = (ability: string) => {
     const capitalizedAbility = capitalizeString(ability);
     emits('abilitySelected', capitalizedAbility);
 };
+
+const handleChange = () => {
+    if (props.searchChange === '') {
+        abilityName.value = '';
+    }
+}
+
+onUpdated(() => {
+    if (props.searchChange === '') {
+        handleChange();
+    }
+})
 
 </script>
 

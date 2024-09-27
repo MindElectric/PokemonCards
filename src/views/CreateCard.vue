@@ -30,8 +30,22 @@ const selectedNature = ref('');
 
 const selectedAbility = ref('');
 
+const resetValues = () => {
+    selectPokemon.value = ''
+    selectedPokemon.value = {} as Pokemon
+    selectedNature.value = ''
+    selectedAbility.value = ''
+    selectedMoves.value = []
+    pokemon.value = []
+    move1.value = ''
+    move2.value = ''
+    move3.value = ''
+    move4.value = ''
+}
+
 const getPokemon = async (value: string) => {
     try {
+        resetValues()
         const response = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1000')
         const json = response.data.results
         if (value != selectPokemon.value) {
@@ -118,7 +132,6 @@ const onSubmit = async () => {
 //Close dialog
 const onCancel = (toggle: boolean) => {
     showPokemonCard.value = toggle
-    console.log(showPokemonCard.value)
 }
 
 </script>
@@ -155,7 +168,8 @@ const onCancel = (toggle: boolean) => {
             <!-- Nature -->
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
-                    <NatureSelect :isDisabled="isReadOnlyToggle" @natureSelected="receiveNature" />
+                    <NatureSelect :isDisabled="isReadOnlyToggle" @natureSelected="receiveNature"
+                        :searchChange="selectPokemon" />
                 </div>
             </div>
 
@@ -163,7 +177,7 @@ const onCancel = (toggle: boolean) => {
             <div class="flex justify-center mt-10">
                 <div class="w-1/4">
                     <AbilitySelect :abilities="selectedPokemon.abilities" :isDisabled="isReadOnlyToggle"
-                        @abilitySelected="receiveAbilities" />
+                        @abilitySelected="receiveAbilities" :searchChange="selectPokemon" />
                 </div>
             </div>
 
@@ -174,12 +188,12 @@ const onCancel = (toggle: boolean) => {
                     <!-- Move 1 -->
                     <div class="w-full mr-5">
                         <MovesSelect :isReadOnly="isReadOnlyToggle" :moves="selectedPokemon.moves" placeholder="Move 1"
-                            :isRequired='true' @moveSelected="receiveMove1" />
+                            :isRequired='true' @moveSelected="receiveMove1" :searchChange="selectPokemon" />
 
                     </div>
                     <div class="w-full">
                         <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move2" :moves="selectedPokemon.moves"
-                            placeholder="Move 2" @moveSelected="receiveMove2" />
+                            placeholder="Move 2" @moveSelected="receiveMove2" :searchChange="selectPokemon" />
                     </div>
                 </div>
             </div>
@@ -188,12 +202,12 @@ const onCancel = (toggle: boolean) => {
                     <!-- Move 1 -->
                     <div class="w-full mr-5">
                         <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move3" :moves="selectedPokemon.moves"
-                            placeholder="Move 3" @moveSelected="receiveMove3" />
+                            placeholder="Move 3" @moveSelected="receiveMove3" :searchChange="selectPokemon" />
 
                     </div>
                     <div class="w-full">
                         <MovesSelect :isReadOnly="isReadOnlyToggle" :move="move4" :moves="selectedPokemon.moves"
-                            placeholder="Move 4" @moveSelected="receiveMove4" />
+                            placeholder="Move 4" @moveSelected="receiveMove4" :searchChange="selectPokemon" />
                     </div>
                 </div>
             </div>

@@ -72,38 +72,38 @@ const drawImage = () => {
 
 
         sprite.onload = () => {
-            ctx?.drawImage(sprite, 50, 30, 300, 300);
+            ctx?.drawImage(sprite, 30, 20, 175, 175);
         };
 
 
 
         // type1Img.src = normal;
         type1Img.onload = () => {
-            ctx?.drawImage(type1Img, 10, 50, 60, 60);
+            ctx?.drawImage(type1Img, 10, 30, 40, 40);
             if (props.pokeTypes.length > 1) {
-                ctx?.drawImage(type2Img, 10, 100, 60, 60);
+                ctx?.drawImage(type2Img, 10, 65, 40, 40);
 
             }
 
 
             // Draw text
             if (ctx) {
-                ctx.font = 'bold 21px Roboto';
+                ctx.font = 'bold 12px Roboto';
                 ctx.fillStyle = 'white';
-                ctx.fillText(`${props.nationalDex}`, 107, 33);
-                ctx.fillText(`${props.pokemonName}`, 170, 33);
-                ctx.font = '16px Roboto';
+                ctx.fillText(`${props.nationalDex}`, 61, 19);
+                ctx.fillText(`${props.pokemonName}`, 100, 19);
+                ctx.font = '10px Roboto';
                 ctx.fillStyle = 'black';
-                ctx.fillText(`${props.nature}`, 480, 89);
-                ctx.fillText(` ${props.ability}`, 480, 132);
-                ctx.fillText(`${props.moves![0]}`, 380, 188);
-                ctx.fillText(`${props.moves![1]}`, 380, 230);
-                ctx.fillText(`${props.moves![2]}`, 380, 272);
-                ctx.fillText(`${props.moves![3]}`, 380, 314);
+                ctx.fillText(`${props.nature}`, 280, 51);
+                ctx.fillText(` ${props.ability}`, 280, 75);
+                ctx.fillText(`${props.moves![0]}`, 220, 108);
+                ctx.fillText(`${props.moves![1]}`, 220, 131);
+                ctx.fillText(`${props.moves![2]}`, 220, 155);
+                ctx.fillText(`${props.moves![3]}`, 220, 178);
 
-                ctx.font = 'bold 20px Roboto';
+                ctx.font = 'bold 12px Roboto';
                 ctx.fillStyle = '#A7DC64'
-                ctx.fillText(`${props.hp} HP`, 55, 329);
+                ctx.fillText(`${props.hp} HP`, 33, 188);
             }
         };
     }

@@ -134,6 +134,12 @@ const onCancel = (toggle: boolean) => {
     showPokemonCard.value = toggle
 }
 
+const reset = () => {
+    resetValues()
+    searchPoke.value = ''
+    isReadOnlyToggle.value = true
+}
+
 </script>
 
 <template>
@@ -214,7 +220,12 @@ const onCancel = (toggle: boolean) => {
 
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">
-                <Button type="submit">Create</Button>
+                <div>
+                    <Button type="submit">Create</Button>
+                </div>
+                <div class="ml-10">
+                    <Button type="button" @click="reset">Reset</Button>
+                </div>
             </div>
 
         </form>

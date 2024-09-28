@@ -3,10 +3,12 @@ import Button from '@/components/ui/button/Button.vue';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel/';
 import Autoplay from 'embla-carousel-autoplay'
 
-import item1 from '@/assets/carousel_images/item1.jpeg'
+import { itemCarousel } from "@/assets/carousel_images/images"
 </script>
 <template>
-    <h1 class="text-5xl font-normal text-center py-44">Build your own Pokémon cards</h1>
+    <Transition>
+        <h1 class="text-5xl font-normal text-center py-44">Build your own Pokémon cards</h1>
+    </Transition>
     <!-- Button -->
     <section class="flex justify-center mb-16">
         <Button size="lg" @click="$router.push('/create')" class="px-12 text-lg font-bold py-7">
@@ -20,15 +22,13 @@ import item1 from '@/assets/carousel_images/item1.jpeg'
             loop: true,
         }" :plugins="[Autoplay({ delay: 5000 })]">
             <CarouselContent>
-                <CarouselItem class="flex justify-center bg-blue-400 ">
-                    <img :src="item1" alt="item1">
-                </CarouselItem>
-                <CarouselItem class="flex justify-center bg-green-400">
-                    <img :src="item1" alt="item2">
+                <CarouselItem v-for="item in itemCarousel" class="flex justify-center bg-blue-400 ">
+                    <img :src="item" alt="item1">
                 </CarouselItem>
             </CarouselContent>
         </Carousel>
     </section>
+
 
     <div class="ml-12">
         <h2 class="mb-3 text-4xl font-bold">
@@ -45,3 +45,17 @@ import item1 from '@/assets/carousel_images/item1.jpeg'
     </div>
 
 </template>
+
+<style scoped>
+.fade-enter-from {
+    opacity: 0;
+}
+
+.fade-enter-to {
+    opacity: 1;
+}
+
+.fade-enter-active {
+    transition: all 2s ease;
+}
+</style>

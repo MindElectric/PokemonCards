@@ -6,9 +6,17 @@ import Autoplay from 'embla-carousel-autoplay'
 import { itemCarousel } from "@/assets/carousel_images/images"
 </script>
 <template>
-    <Transition>
-        <h1 class="text-5xl font-normal text-center py-44">Build your own Pokémon cards</h1>
-    </Transition>
+    <div class="justify-center block py-32 mx-5 lg:flex lg:py-44">
+        <Transition name="fade" appear>
+            <h1 class="mb-10 text-5xl font-normal text-center lg:mb-0">Build your own Pokémon cards</h1>
+        </Transition>
+
+        <Transition name="slide-in" appear>
+            <div class="isometric-container">
+                <img :src="itemCarousel[0]" alt="item1" class="isometric-image">
+            </div>
+        </Transition>
+    </div>
     <!-- Button -->
     <section class="flex justify-center mb-16">
         <Button size="lg" @click="$router.push('/create')" class="px-12 text-lg font-bold py-7">
@@ -22,8 +30,11 @@ import { itemCarousel } from "@/assets/carousel_images/images"
             loop: true,
         }" :plugins="[Autoplay({ delay: 5000 })]">
             <CarouselContent>
-                <CarouselItem v-for="item in itemCarousel" class="flex justify-center bg-blue-400 ">
-                    <img :src="item" alt="item1">
+                <CarouselItem v-for="item in itemCarousel"
+                    class="flex justify-center bg-gradient-to-r from-gray-800 to-black ">
+                    <div class="isometric-container animate-float">
+                        <img :src="item" alt="item1" class="p-9 h-96 isometric-image">
+                    </div>
                 </CarouselItem>
             </CarouselContent>
         </Carousel>
@@ -57,5 +68,19 @@ import { itemCarousel } from "@/assets/carousel_images/images"
 
 .fade-enter-active {
     transition: all 2s ease;
+}
+
+.slide-in-enter-from {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.slide-in-enter-to {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-in-enter-active {
+    transition: all 2s ease-in-out;
 }
 </style>

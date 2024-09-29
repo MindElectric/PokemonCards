@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.isometric-container {
+    perspective: 800;
+}
+
+.isometric-image {
+    @apply block mx-auto origin-center transform;
+    transform: rotateX(30deg) rotateY(30deg) scale(0.9);
+}

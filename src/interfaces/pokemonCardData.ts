@@ -2,6 +2,7 @@ import type { Type } from "./pokemon";
 
 export interface PokemonCardData {
     readonly pokemonName: string,
+    readonly nickname?: string,
     readonly nature: String,
     readonly ability: String,
     readonly moves: String[],

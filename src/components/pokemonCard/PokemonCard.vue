@@ -10,6 +10,9 @@ const props = defineProps({
     type: String,
     required: true
   },
+  nickName: {
+    type: String,
+  },
   nature: {
     type: String,
     required: true
@@ -92,6 +95,7 @@ const drawImage = () => {
         ctx.fillStyle = 'white';
         ctx.fillText(`${props.nationalDex}`, 107, 33);
         ctx.fillText(`${props.pokemonName}`, 170, 33);
+        ctx.fillText(`${props.nickName}`, 330, 33);
         ctx.font = '16px Roboto';
         ctx.fillStyle = 'black';
         ctx.fillText(`${props.nature}`, 480, 89);
@@ -115,12 +119,6 @@ const getImageUrl = (name: string) => {
 };
 
 
-// const downloadImage = () => {
-//   const link = document.createElement('a');
-//   link.download = `${props.pokemonName}.png`;
-//   link.href = (canvas.value as HTMLCanvasElement).toDataURL('image/png');
-//   link.click();
-// };
 const handleClick = () => {
   downloadImage(props);
 }

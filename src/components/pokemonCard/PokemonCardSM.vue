@@ -10,6 +10,9 @@ const props = defineProps({
         type: String,
         required: true
     },
+    nickName: {
+        type: String,
+    },
     nature: {
         type: String,
         required: true
@@ -92,6 +95,7 @@ const drawImage = () => {
                 ctx.fillStyle = 'white';
                 ctx.fillText(`${props.nationalDex}`, 61, 19);
                 ctx.fillText(`${props.pokemonName}`, 100, 19);
+                ctx.fillText(`${props.nickName}`, 200, 19);
                 ctx.font = '10px Roboto';
                 ctx.fillStyle = 'black';
                 ctx.fillText(`${props.nature}`, 280, 51);

@@ -30,9 +30,12 @@ const selectedNature = ref('');
 
 const selectedAbility = ref('');
 
+const nickName = ref('');
+
 const resetValues = () => {
     selectPokemon.value = ''
     selectedPokemon.value = {} as Pokemon
+    nickName.value = ''
     selectedNature.value = ''
     selectedAbility.value = ''
     selectedMoves.value = []
@@ -145,7 +148,7 @@ const reset = () => {
 <template>
     <div class="mt-10 ">
         <form @submit.prevent="onSubmit">
-            <div class="flex justify-center">
+            <div class="flex justify-center mx-5 md:mx-0">
                 <div>
                     <label class="text-3xl font-bold">Pokémon Name</label>
                     <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu"
@@ -164,9 +167,10 @@ const reset = () => {
                     </div>
                 </div>
 
+                <!-- Nickname -->
                 <div class="ml-20">
                     <label class="text-3xl font-bold">Nickname (optional)</label>
-                    <Input />
+                    <Input v-model="nickName" placeholder="Pikachu" name="Nickname" maxlength="8" />
                 </div>
 
             </div>
@@ -235,14 +239,14 @@ const reset = () => {
             <FormDialog @cancel="onCancel">
                 <!-- Big Pokemon Card for lage screen -->
                 <div class="hidden lg:block">
-                    <PokemonCard :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+                    <PokemonCard :pokemonName="searchPoke" :nickName="nickName" :art="sprite" :nature="selectedNature"
                         :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
                         :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
                 </div>
 
                 <!-- Small Pokemon Card for small screen -->
                 <div class="block lg:hidden">
-                    <PokemonCardSM :pokemonName="searchPoke" :art="sprite" :nature="selectedNature"
+                    <PokemonCardSM :pokemonName="searchPoke" :nickName="nickName" :art="sprite" :nature="selectedNature"
                         :pokeTypes="selectedPokemon.types" :ability="selectedAbility" :moves="selectedMoves"
                         :nationalDex="selectedPokemon.id" :hp="selectedPokemon.stats[0].base_stat" />
                 </div>

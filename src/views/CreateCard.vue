@@ -146,7 +146,7 @@ const reset = () => {
 </script>
 
 <template>
-    <div class="mt-10 ">
+    <div class="block pt-20">
         <form @submit.prevent="onSubmit">
             <div class="flex justify-center mx-5 md:mx-0">
                 <div>
@@ -225,10 +225,10 @@ const reset = () => {
             <!-- Button -->
             <div class="flex justify-center mt-10 mb-14">
                 <div>
-                    <Button type="submit">Create</Button>
+                    <Button type="submit" title="Create">Create</Button>
                 </div>
                 <div class="ml-10">
-                    <Button type="button" @click="reset">Reset</Button>
+                    <Button type="button" title="Reset" @click="reset">Reset</Button>
                 </div>
             </div>
 

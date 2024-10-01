@@ -132,9 +132,9 @@ onMounted(() => {
 <template>
     <div>
 
-        <div class="p-4 bg-white rounded-lg shadow-lg">
-            <canvas id="canvasId" ref="canvas" :width="width" :height="height" class="border"></canvas>
-        </div>
+
+        <canvas id="canvasId" ref="canvas" :width="width" :height="height" class="border"></canvas>
+
         <div>
             <button @click="onClick" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-700">
                 Download Image

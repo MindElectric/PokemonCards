@@ -4,6 +4,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import Autoplay from 'embla-carousel-autoplay'
 
 import { itemCarousel } from "@/assets/carousel_images/images"
+import Player from '@/components/video/Player.vue';
 </script>
 <template>
     <div class="justify-center block py-32 mx-5 lg:flex lg:py-44">
@@ -19,9 +20,12 @@ import { itemCarousel } from "@/assets/carousel_images/images"
     </div>
     <!-- Button -->
     <section class="flex justify-center mb-16">
-        <Button size="lg" @click="$router.push('/create')" class="px-12 text-lg font-bold py-7">
-            Create
-        </Button>
+        <RouterLink to="/create">
+
+            <Button size="lg" class="px-12 text-lg font-bold py-7">
+                Create
+            </Button>
+        </RouterLink>
     </section>
 
     <!-- Card carousel -->
@@ -33,7 +37,7 @@ import { itemCarousel } from "@/assets/carousel_images/images"
                 <CarouselItem v-for="item in itemCarousel"
                     class="flex justify-center bg-gradient-to-r from-gray-800 to-black ">
                     <div class="isometric-container animate-float">
-                        <img :src="item" alt="item1" class="p-9 h-96 isometric-image">
+                        <img :src="item" alt="item1" class="h-64 p-9 md:h-96 isometric-image">
                     </div>
                 </CarouselItem>
             </CarouselContent>
@@ -41,19 +45,33 @@ import { itemCarousel } from "@/assets/carousel_images/images"
     </section>
 
 
-    <div class="ml-12">
+    <section class="ml-12">
         <h2 class="mb-3 text-4xl font-bold">
             What to do?
         </h2>
-        <p class="mb-16">
-            Sint laboris esse magna eu id. Aute nisi adipisicing reprehenderit id eiusmod adipisicing id officia. In et
-            sit
-            nulla dolore Lorem minim. Pariatur minim Lorem ut sit pariatur dolore fugiat.
+        <p class="mb-10 lg:mb-16 lg:text-xl">
+            Just fill out the form with your desired pokemon with its attributes!
         </p>
 
-        <Button class="px-12 mb-16 text-lg font-bold py-7" @click="$router.push('/create')">Create your own
-            card!</Button>
-    </div>
+        <div class="flex justify-center w-4/6 mx-auto">
+            <Player vid="ExampleFormDesktop" />
+        </div>
+
+        <p class="mt-10 mb-10 lg:mb-16 lg:text-xl">Once you have filled out the form, click the "Create" button and your
+            card
+            will be created! <br>
+            Click the download button to download your card.
+        </p>
+
+        <div class="flex justify-center w-4/6 mx-auto">
+            <Player vid="ExampleFormDesktop2" />
+        </div>
+
+        <RouterLink to="/create">
+            <Button class="px-8 py-3 mt-10 mb-16 font-bold md:px-12 md:text-lg md:py-7">Create your own
+                card!</Button>
+        </RouterLink>
+    </section>
 
 </template>
 

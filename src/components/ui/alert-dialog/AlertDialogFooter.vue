@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <div :class="cn(
-    'flex flex-col-reverse sm:flex-row justify-start sm:gap-x-2',
+    'flex flex-col-reverse w-24 sm:flex-row justify-start sm:gap-x-2',
     props.class,
   )
     ">

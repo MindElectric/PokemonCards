@@ -6,7 +6,6 @@ const props = defineProps({
 })
 
 const videoSrc = computed(() => new URL(`../../assets/videos/${props.vid}.mp4`, import.meta.url).href);
-console.log(videoSrc.value)
 </script>
 
 <template>

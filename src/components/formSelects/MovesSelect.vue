@@ -68,7 +68,7 @@ onUpdated(() => {
 
 <template>
     <div class="w-full">
-        <Input v-model="move1" :readonly="isReadOnly" :placeholder="placeholder" class="mr-5"
+        <Input name="Moves" v-model="move1" :readonly="isReadOnly" :placeholder="placeholder" class="mr-5"
             @update:model-value="moveName1(move1, moves)" :required="isRequired" />
         <div class="relative">
             <div v-show="filteredMovesArray1.length"

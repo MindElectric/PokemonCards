@@ -129,7 +129,6 @@ const onSubmit = async () => {
     selectedMoves.value = [move1.value, move2.value, move3.value, move4.value]
     sprite.value = selectedPokemon.value.sprites.other!['official-artwork'].front_default
     showPokemonCard.value = true
-    // Create pokemon card
 }
 
 //Close dialog
@@ -150,7 +149,7 @@ const reset = () => {
         <form @submit.prevent="onSubmit">
             <div class="flex justify-center mx-5 md:mx-0">
                 <div>
-                    <label class="text-3xl font-bold">Pokémon Name</label>
+                    <label class="text-3xl font-bold" for="Pokemon">Pokémon Name</label>
                     <Input v-model="searchPoke" @update:model-value="getPokemon(searchPoke)" placeholder="Pikachu"
                         name="Pokemon" required />
                     <!-- List of pokemons -->
@@ -169,7 +168,7 @@ const reset = () => {
 
                 <!-- Nickname -->
                 <div class="ml-20">
-                    <label class="text-3xl font-bold">Nickname (optional)</label>
+                    <label class="text-3xl font-bold" for="Nickname">Nickname (optional)</label>
                     <Input v-model="nickName" placeholder="Pikachu" name="Nickname" maxlength="8" />
                 </div>
 

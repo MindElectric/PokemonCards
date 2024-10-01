@@ -49,8 +49,9 @@ onUpdated(() => {
 </script>
 
 <template>
-    <label class="text-3xl font-bold">Ability</label>
-    <Select :disabled="isDisabled" required v-model="abilityName" @update:model-value="emitAbility(abilityName)">
+    <label class="text-3xl font-bold" for="Ability">Ability</label>
+    <Select name="Ability" :disabled="isDisabled" required v-model="abilityName"
+        @update:model-value="emitAbility(abilityName)">
         <SelectTrigger>
             <SelectValue placeholder="Select an Ability" />
         </SelectTrigger>

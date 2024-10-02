@@ -7,6 +7,7 @@ This app was inspired by a friend of mine who needed a way to create Pokémon ca
 
 The project is not complicated, the tools used were:
 - Vue3.JS
+- TypeScript
 - TailwindCSS
 - ShadCN/vue
 

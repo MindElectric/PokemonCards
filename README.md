@@ -1,18 +1,17 @@
 # poke-cards
 
-This template should help get you started developing with Vue 3 in Vite.
+This app was inspired by a friend of mine who needed a way to create Pokémon cards from a certain template. This is the solution to that! Create your own Pokémon cards with this application! Just fill out the form and click create to create your card.
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Tech Stack
 
-## Type Support for `.vue` Imports in TS
+The project is not complicated the tools used where:
+- Vue3.JS
+- TailwindCSS
+- ShadCN/vue
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Prerequisits
+Make sure to have NodeJS installed before cloning the project
 
 ## Project Setup
 
@@ -32,8 +31,3 @@ npm run dev
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```

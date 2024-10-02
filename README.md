@@ -5,12 +5,12 @@ This app was inspired by a friend of mine who needed a way to create Pokémon ca
 
 ## Tech Stack
 
-The project is not complicated the tools used where:
+The project is not complicated, the tools used were:
 - Vue3.JS
 - TailwindCSS
 - ShadCN/vue
 
-## Prerequisits
+## Prerequisites
 Make sure to have NodeJS installed before cloning the project
 
 ## Project Setup

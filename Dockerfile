@@ -11,11 +11,11 @@ COPY . /app
 
 RUN npm run build
 
-# Install a lightweight web server
-RUN npm install -g http-server
+# Install a web server
+RUN npm install -g serve
 
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Command to run the app
-CMD ["http-server", "dist", "--proxy", "http://localhost:8080"]
+CMD ["serve", "-s", "dist"]
